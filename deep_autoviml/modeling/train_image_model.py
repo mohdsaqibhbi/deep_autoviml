@@ -93,7 +93,7 @@ from sklearn.metrics import confusion_matrix, roc_auc_score, accuracy_score
 from collections import defaultdict
 from tensorflow.keras import callbacks
 #############################################################################################
-def train_image_model(deep_model, train_ds, valid_ds, cat_vocab_dict, 
+def train_image_model(deep_model, train_ds, valid_ds, cat_vocab_dict,
                       keras_options, model_options, project_name, save_model_flag):
     epochs = check_keras_options(keras_options, "epochs", 20)
     save_model_path = model_options['save_model_path']
@@ -101,8 +101,8 @@ def train_image_model(deep_model, train_ds, valid_ds, cat_vocab_dict,
     print('Tensorboard log directory can be found at: %s' %tensorboard_logpath)
     cp = keras.callbacks.ModelCheckpoint(project_name, save_best_only=True,
                                          save_weights_only=True, save_format='tf')
-    es = keras.callbacks.EarlyStopping(monitor=val_monitor, min_delta=0.00001, patience=patience,
-                        verbose=1, mode=val_mode, baseline=None, restore_best_weights=True)
+    es = keras.callbacks.EarlyStopping(monitor="val_loss", min_delta=0.00001, patience=0,
+                        verbose=1, mode="auto", baseline=None, restore_best_weights=True)
 
     tb = keras.callbacks.TensorBoard(log_dir=tensorboard_logpath,
                          histogram_freq=0,
